@@ -2,8 +2,6 @@
 
 %w(rubygems summer).each { |lib| require lib }
 
-config = HashWithIndifferentAccess.new(YAML::load_file(File.dirname($0) + '/config/summer.yml'))
-
 module Dart
   module Actions; end
   
@@ -51,4 +49,5 @@ end
 
 Dir.glob('lib/**/*.rb') { |lib| require lib }
 
+config = HashWithIndifferentAccess.new(YAML::load_file(File.dirname($0) + '/config/summer.yml'))
 Dart::Bot.new(config[:server])
