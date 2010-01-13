@@ -32,17 +32,25 @@ Dart executes @command@ in a subshell.
 
 h4. message
 
-Dart sends @message@ as an IRC PRIVMSG. If @to@ is not given, it is sent to wherever the command originated from.
+Dart sends @message@ as an IRC PRIVMSG.
 
 | _message_ | The message to send |
-| _to_ | The message target |
+| _to_ | The message target (optional) |
 
 h4. notice
 
-Dart sends @message@ as an IRC NOTICE. If @to@ is not given, it is sent to wherever the command originated from.
+Dart sends @message@ as an IRC NOTICE.
 
 | _message_ | The notice to send |
-| _to_ | The notice target |
+| _to_ | The notice target (optional) |
+
+h4. ruby
+
+Dart executes @code@ using Ruby's @eval@ method and prints the result.
+
+| _code_ | Code to execute |
+| _silent_ | If set, will not print result (optional) |
+| _to_ | Where to send the result (optional) |
 
 h4. quit
 
