@@ -5,7 +5,6 @@ class String
     last = eval 'Thread.current[:last]', vars
     sender = eval 'sender', vars
     
-    parse_last(last).
     parse_sender(sender).
     parse_args(args)
   end
@@ -18,10 +17,6 @@ class String
         args[i]
       end
     end
-  end
-  
-  def parse_last(last)
-    gsub(/%last/i, last)
   end
   
   def parse_sender(sender)
