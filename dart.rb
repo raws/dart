@@ -2,10 +2,14 @@
 
 %w(rubygems summer).each { |lib| require lib }
 
-@config = HashWithIndifferentAccess.new(YAML::load_file(File.dirname($0) + '/config/summer.yml'))
+config = HashWithIndifferentAccess.new(YAML::load_file(File.dirname($0) + '/config/summer.yml'))
 
 module Dart
+  module Actions; end
+  
   class Bot < Summer::Connection
+    include Dart::Actions
+    
     def channel_message(sender, channel, message)
       handle_message(sender, channel, message)
     end
@@ -34,29 +38,17 @@ module Dart
 
           config[:actions].each do |action|
             action = HashWithIndifferentAccess.new(action)
-
-            case action[:type]
-          
-            when 'shell', 'terminal', 'term':
-              output = `#{action[:command].dartify {}}`
-              privmsg output, source unless action[:silent] or output.nil? or output =~ /^\s*$/
-          
-            when 'message':
-              privmsg action[:message].dartify {}, action[:to] || source
-          
-            when 'notice':
-              response "NOTICE #{action[:to].dartify {} || source} :#{action[:message].dartify {}}"
-          
-            when 'quit', 'exit':
-              Thread.main.exit
-          
-            end
-          end # config[:actions].each
-        end # @config[:commands].each_pair
+            action.each_pair { |key, val| action[key] = val.dartify(sender, args) unless key == 'type' }
+            type = (action[:type] + '_action').to_sym
+            
+            send(type, action, sender, source, args) if respond_to?(type)
+          end
+        end
       end # Thread.new
-    end # handle_message
+    end
   end
 end
 
 Dir.glob('lib/**/*.rb') { |lib| require lib }
-Dart::Bot.new(@config[:server])
+
+Dart::Bot.new(config[:server])
