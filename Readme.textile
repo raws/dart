@@ -1,0 +1,56 @@
+h1. Dart
+
+Dart is a tiny personal IRC bot.
+
+Unlike most bots, the only functionality Dart comes with is the ability to connect to a server. It's up to you to add commands using simple YAML building blocks (like executing a shell command).
+
+h2. Requirements
+
+You'll need the "summer":http://github.com/radar/summer gem, which is an ultra-lightweight IRC framework.
+
+h2. Configuration
+
+To configure Dart, copy <tt>config/summer.yml.example</tt> to <tt>config/summer.yml</tt>.
+
+Tell Dart where to connect using @server@, @nick@ and @channels@.
+
+@owner@ will be inserted into the regular expression @/^owner$/i@ and should match any hostmasks (e.g. "Wheaties!wheaties@example.com") Dart should respond to. Remove @owner@ to have Dart respond to anyone.
+
+@commands@ is a hash of command names and associated actions. You may use YAML's _&anchors_ and _*references_ to create "aliases" for your commands.
+
+h3. Actions
+
+Each action has a @type@, and most types of actions have some additional options.
+
+Actions can access arguments passed to commands. @%0@ will be substituted with the entire argument string, and @%1, %2, ...@ are substituted with individual arguments (or an empty string).
+
+h4. shell, term, terminal
+
+Dart executes @command@ in a subshell.
+
+| _command_ | The shell command to execute |
+
+h4. message
+
+Dart sends @message@ as an IRC PRIVMSG. If @to@ is not given, it is sent to wherever the command originated from.
+
+| _message_ | The message to send |
+| _to_ | The message target |
+
+h4. notice
+
+Dart sends @message@ as an IRC NOTICE. If @to@ is not given, it is sent to wherever the command originated from.
+
+| _message_ | The notice to send |
+| _to_ | The notice target |
+
+h4. quit
+
+Dart disconnects from the server and exits.
+
+h2. Usage
+
+Tell Dart to execute a command by addressing him in IRC:
+
+<pre><Wheaties> dart: echo my hovercraft is full of eels
+<dart> my hovercraft is full of eels</pre>

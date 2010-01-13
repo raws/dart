@@ -1,0 +1,26 @@
+---
+server: irc.example.net
+nick: dart
+channels:
+  - "#dart"
+owner: ".*!(?:wheaties|monty)@127.0.0.1"
+
+commands:
+  quit:
+    actions:
+      - type: quit
+  
+  echo: &echo
+    actions:
+      - type: term
+        command: 'echo "%0"'
+  say: *echo
+  
+  wget: &wget
+    actions:
+      - type: term
+        command: "wget -q -P ~/Downloads %0"
+      - type: notice
+        message: "Finished downloading %0!"
+        to: "%nick"
+  dl: *wget
