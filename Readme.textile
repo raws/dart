@@ -12,7 +12,7 @@ You'll need the "summer":http://github.com/radar/summer gem, which is an ultra-l
 
 h2. Configuration
 
-To configure Dart, copy <tt>config/summer.yml.example</tt> to <tt>config/summer.yml</tt>.
+To configure Dart, copy <tt>config/summer.example.yml</tt> to <tt>config/summer.yml</tt>.
 
 Tell Dart where to connect using @server@, @nick@ and @channels@.
 
