@@ -1,8 +1,10 @@
-h1. Dart
+h1. Dart (pure)
 
 Dart is a tiny personal IRC bot.
 
-Unlike most bots, the only functionality Dart comes with is the ability to connect to a server. It's up to you to add commands using simple YAML building blocks (like executing a shell command).
+*The "pure" branch uses pure Ruby code to define commands.*
+
+Unlike most bots, the only functionality Dart comes with is the ability to connect to a server. It's up to you to add commands using Ruby.
 
 h2. Requirements
 
@@ -16,45 +18,7 @@ Tell Dart where to connect using @server@, @nick@ and @channels@.
 
 @owner@ will be inserted into the regular expression @/^owner$/i@ and should match any hostmasks (e.g. "Wheaties!wheaties@example.com") Dart should respond to. Remove @owner@ to have Dart respond to anyone.
 
-@commands@ is a hash of command names and associated actions. You may use YAML's _&anchors_ and _*references_ to create "aliases" for your commands.
-
-h3. Actions
-
-Each action has a @type@, and most types of actions have some additional options.
-
-Actions can access arguments passed to commands. @%0@ will be substituted with the entire argument string, and @%1, %2, ...@ are substituted with individual arguments (or an empty string).
-
-h4. shell, term, terminal
-
-Dart executes @command@ in a subshell.
-
-| _command_ | The shell command to execute |
-
-h4. message
-
-Dart sends @message@ as an IRC PRIVMSG.
-
-| _message_ | The message to send |
-| _to_ | The message target (optional) |
-
-h4. notice
-
-Dart sends @message@ as an IRC NOTICE.
-
-| _message_ | The notice to send |
-| _to_ | The notice target (optional) |
-
-h4. ruby
-
-Dart executes @code@ using Ruby's @eval@ method and prints the result.
-
-| _code_ | Code to execute |
-| _silent_ | If set, will not print result (optional) |
-| _to_ | Where to send the result (optional) |
-
-h4. quit
-
-Dart disconnects from the server and exits.
+@commands@ is a hash of command names and associated Ruby code. You may use YAML's _&anchors_ and _*references_ to create "aliases" for your commands.
 
 h2. Usage
 
