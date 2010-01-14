@@ -6,21 +6,17 @@ channels:
 owner: ".*!(?:wheaties|monty)@127.0.0.1"
 
 commands:
+  # Causes Dart to disconnect and exit.
   quit:
-    actions:
-      - type: quit
+    do: Thread.main.exit
   
-  echo: &echo
-    actions:
-      - type: term
-        command: 'echo "%0"'
+  # Standard /bin/echo.
+	echo: &echo
+    do: privmsg `echo "#{args.join(' ')}"`, source
   say: *echo
   
-  wget: &wget
-    actions:
-      - type: term
-        command: "wget -q -P ~/Downloads %0"
-      - type: notice
-        message: "Finished downloading %0!"
-        to: "%nick"
-  dl: *wget
+  # Downloads a file to ~/Downloads.
+  dl:
+    do: |
+      `wget -q -P ~/Downloads #{args.first}`
+      privmsg "Finished downloading #{args.first}!", source
