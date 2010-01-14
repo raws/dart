@@ -11,7 +11,7 @@ commands:
     do: Thread.main.exit
   
   # Standard /bin/echo.
-	echo: &echo
+  echo: &echo
     do: privmsg `echo "#{args.join(' ')}"`, source
   say: *echo
   
