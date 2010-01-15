@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+# 
+# Controller for the Dart daemon. Must be run from the Dart root directory.
+# 
+# Usage: script/daemon <command> <options>
+# 
+# Where <command> is one of:
+# 
+#   start     start an instance of Dart
+#   stop      stop all instances of Dart
+#   restart   stop all instances and restart them
+
+require 'rubygems'
+require 'daemons'
+
+root = File.expand_path("#{File.dirname(__FILE__)}/..")
+
+Daemons.run "#{root}/script/server", :app_name => 'dart', :dir_mode => :normal,
+  :dir => "#{root}/tmp", :multiple => false, :backtrace => true, :monitor => false

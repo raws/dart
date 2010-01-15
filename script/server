@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+#
+# Runs Dart from the command line. To run Dart as a daemon, please
+# see script/daemon.
+
+DART_ROOT = File.expand_path("#{File.dirname(__FILE__)}/..")
+$: << DART_ROOT
+
+require 'lib/dart'
+
+Dart::Bot.new

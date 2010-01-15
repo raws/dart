@@ -1,8 +1,25 @@
-#!/usr/bin/env ruby
-%w(rubygems summer).each { |lib| require lib }
+require 'rubygems'
+require 'summer'
 
 module Dart
   class Bot < Summer::Connection
+    def initialize
+      @ready = false
+      @started = false
+      
+      load_config
+      
+      @server = @config[:server]
+      @port = (@config[:port] || 6667).to_i
+      
+      connect!
+      
+      loop do
+        startup! if @ready && !@started
+        parse(@connection.gets)
+      end
+    end
+    
     def channel_message(sender, channel, message)
       handle_message(sender, channel, message)
     end
@@ -24,9 +41,14 @@ module Dart
           eval @config[:commands][command]['do'] if @config[:commands].key?(command)
         end
       end
-    end # handle_message
+    end
+    
+    private
+    
+    def load_config
+      @config = HashWithIndifferentAccess.new(YAML::load_file("#{DART_ROOT}/config/dart.yml"))
+    end
+    
   end
+  
 end
-
-config = HashWithIndifferentAccess.new(YAML::load_file(File.dirname($0) + '/config/summer.yml'))
-Dart::Bot.new(config[:server])

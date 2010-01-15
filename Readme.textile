@@ -8,13 +8,13 @@ Unlike most bots, the only functionality Dart comes with is the ability to conne
 
 h2. Requirements
 
-You'll need the "summer":http://github.com/radar/summer gem, which is an ultra-lightweight IRC framework.
+You'll need the "summer":http://github.com/radar/summer gem, which is an ultra-lightweight IRC framework; as well as "daemons":http://daemons.rubyforge.org/.
 
 h2. Configuration
 
-To configure Dart, copy <tt>config/summer.example.yml</tt> to <tt>config/summer.yml</tt>.
+To configure Dart, copy <tt>config/dart.example.yml</tt> to <tt>config/dart.yml</tt>.
 
-Tell Dart where to connect using @server@, @nick@ and @channels@.
+Tell Dart where to connect using @server@, @nick@ and @channels@. You may optionally specify @port@.
 
 @owner@ will be inserted into the regular expression @/^owner$/i@ and should match any hostmasks (e.g. "Wheaties!wheaties@example.com") Dart should respond to. Remove @owner@ to have Dart respond to anyone.
 
