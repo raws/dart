@@ -52,6 +52,10 @@ module Dart
       @config = HashWithIndifferentAccess.new(YAML::load_file("#{DART_ROOT}/config/dart.yml"))
     end
     
+    def notice(message, to)
+      response("NOTICE #{to} :#{message}")
+    end
+    
   end
   
 end
