@@ -38,7 +38,10 @@ module Dart
           args = $1.split
           command = args.shift
           
-          eval @config[:commands][command]['do'] if @config[:commands].key?(command)
+          if @config[:commands].key?(command)
+            settings = @config[:commands][command]
+            eval settings['do']
+          end
         end
       end
     end
