@@ -22,6 +22,8 @@ Tell Dart where to connect using @server@, @nick@ and @channels@. You may option
 
 h2. Usage
 
+Launch Dart by running @rake app:start@ in Dart's root directory. Use @rake --tasks@ for a list of other tasks you can perform.
+
 Tell Dart to execute a command by addressing him in IRC:
 
 <pre><Wheaties> dart: echo my hovercraft is full of eels
